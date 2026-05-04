@@ -201,8 +201,8 @@ export function Sidebar({ userName, userEmail, onLogout }: SidebarProps) {
             >
               <LogOut className="w-4 h-4" />
               <span className="text-sm font-medium">Sair</span>
-            <button
-            className="w-full flex items-center justify-center p-3 text-neutral-600 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all duration-200 relative group"
+            </button>
+          </div>
         ) : (
           <button
             onClick={onLogout}
