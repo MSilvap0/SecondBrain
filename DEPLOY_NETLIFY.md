@@ -32,12 +32,12 @@ npm install --save-dev @netlify/plugin-nextjs
 
 #### Base directory:
 ```
-frontend
+(deixe vazio ou coloque /)
 ```
 
 #### Build command:
 ```
-npm run build
+cd frontend && npm install && npm run build
 ```
 
 #### Publish directory:
