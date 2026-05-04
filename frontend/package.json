@@ -11,6 +11,7 @@
   "dependencies": {
     "@types/react-syntax-highlighter": "^15.5.13",
     "axios": "^1.16.0",
+    "clsx": "^2.1.1",
     "framer-motion": "^12.38.0",
     "lucide-react": "^1.11.0",
     "next": "16.2.4",
@@ -20,7 +21,8 @@
     "react-markdown": "^10.1.0",
     "react-syntax-highlighter": "^16.1.1",
     "rehype-highlight": "^7.0.2",
-    "remark-gfm": "^4.0.1"
+    "remark-gfm": "^4.0.1",
+    "tailwind-merge": "^3.5.0"
   },
   "devDependencies": {
     "@netlify/plugin-nextjs": "^5.15.10",
