@@ -1,0 +1,19 @@
+{
+  "name": "second-brain-inteligente",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently \"pnpm --filter backend dev\" \"pnpm --filter frontend-web dev\"",
+    "build": "pnpm --filter backend build && pnpm --filter frontend-web build",
+    "lint": "pnpm --filter backend lint && pnpm --filter frontend-web lint",
+    "test": "pnpm --filter backend test"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "typescript": "^5.3.3"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "pnpm": ">=8.0.0"
+  }
+}

@@ -1,0 +1,99 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  name      String
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Email verification (não usado mais para verificação pendente)
+  emailVerified     Boolean   @default(true)
+  verificationCode  String?
+  verificationExpiry DateTime?
+
+  // Subscription Plan
+  plan              String    @default("free") // free, pro, enterprise
+  planExpiresAt     DateTime?
+  ideasLimit        Int       @default(10)
+  ideasCount        Int       @default(0)
+  hasCompletedOnboarding Boolean @default(false)
+
+  // AI Usage Tracking
+  aiRequestsCount   Int       @default(0)
+  aiTokensUsed      Int       @default(0)
+  aiTokensLimit     Int       @default(10000) // 10k free, 100k pro, unlimited enterprise
+  chatMessagesCount Int       @default(0)
+  usageResetAt      DateTime  @default(now()) // Reset mensal
+
+  ideas     Idea[]
+}
+
+// Nova tabela para verificações pendentes
+model PendingVerification {
+  id                String   @id @default(uuid())
+  email             String   @unique
+  name              String
+  password          String   // Hash da senha (salvo temporariamente)
+  verificationCode  String
+  verificationExpiry DateTime
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+}
+
+// Tabela para tokens de reset de senha
+model PasswordResetToken {
+  id        String   @id @default(uuid())
+  email     String
+  token     String   @unique
+  expiresAt DateTime
+  used      Boolean  @default(false)
+  createdAt DateTime @default(now())
+  
+  @@index([email])
+  @@index([token])
+}
+
+model Idea {
+  id                  String   @id @default(uuid())
+  title               String
+  description         String
+  expandedContent     String?
+  suggestions         String?  // JSON array as string
+  relatedTopics       String?  // JSON array as string
+  chatMessages        String?  // JSON array of messages
+  isFavorite          Boolean  @default(false)
+  tags                String?  // JSON array as string
+  userId              String
+  user                User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+
+  @@index([userId])
+  @@index([userId, isFavorite])
+}
+
+// Tabela para histórico de compras
+model Purchase {
+  id              String   @id @default(uuid())
+  userId          String
+  plan            String   // pro, enterprise
+  planName        String
+  amount          Float
+  billingCycle    String   // monthly, yearly
+  status          String   @default("completed") // completed, pending, failed
+  transactionId   String   @unique
+  paymentMethod   String?  // visa, mastercard, pix
+  createdAt       DateTime @default(now())
+  
+  @@index([userId])
+  @@index([transactionId])
+}

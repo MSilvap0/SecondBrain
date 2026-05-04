@@ -1,0 +1,11 @@
+packages:
+  - 'frontend-web'
+  - 'frontend-mobile'
+  - 'backend'
+  - 'shared'
+allowBuilds:
+  '@prisma/client': false
+  '@prisma/engines': false
+  esbuild: false
+  mongodb-memory-server: false
+  prisma: false
