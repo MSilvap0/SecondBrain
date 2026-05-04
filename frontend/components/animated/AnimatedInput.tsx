@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import { InputHTMLAttributes, useState } from 'react';
 
-interface AnimatedInputProps extends InputHTMLAttributes<HTMLInputElement> {
+interface AnimatedInputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'onDrag' | 'onDragStart' | 'onDragEnd'> {
   label?: string;
   error?: string;
   icon?: React.ReactNode;
