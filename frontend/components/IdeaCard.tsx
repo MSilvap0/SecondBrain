@@ -4,23 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Lightbulb, Star, Trash2, Sparkles, ChevronDown, MessageSquare } from 'lucide-react';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-
-interface IdeaCardProps {
-  id: string;
-  title: string;
-  description: string;
-  expanded?: {
-    expandedContent: string;
-    suggestions?: string[];
-    relatedTopics?: string[];
-  };
-  isFavorite?: boolean;
-  tags?: string[];
-  createdAt?: Date | string;
-  onDelete?: (id: string) => void;
-  onToggleFavorite?: (id: string) => void;
-  onAIExpand?: (id: string) => void;
-}
+import type { IdeaCardProps } from '@/types/idea';
 
 export function IdeaCard({ 
   id,
