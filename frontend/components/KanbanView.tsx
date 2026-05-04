@@ -7,9 +7,9 @@ import { Lightbulb, Star, CheckCircle } from 'lucide-react';
 
 interface KanbanViewProps {
   ideas: Idea[];
-  onDelete?: (id: number) => void;
-  onToggleFavorite?: (id: number) => void;
-  onAIExpand?: (id: number) => void;
+  onDelete?: (id: string | number) => void;
+  onToggleFavorite?: (id: string | number) => void;
+  onAIExpand?: (id: string | number) => void;
 }
 
 type Column = 'backlog' | 'favorites' | 'expanded';
