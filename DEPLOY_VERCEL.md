@@ -1,120 +1,183 @@
-# 🚀 Deploy do Second Brain no Vercel
+# Deploy no Vercel - Second Brain
 
-## Passo a Passo
+Este guia explica como fazer o deploy completo (frontend + backend) no Vercel.
 
-### 1. Acesse o Vercel
-- Vá para: https://vercel.com
-- Clique em **"Sign Up"** ou **"Login"**
-- Escolha **"Continue with GitHub"**
+## 📋 Pré-requisitos
 
-### 2. Importe o Projeto
-- Clique em **"Add New..."** → **"Project"**
-- Selecione o repositório **"SecondBrain"**
-- Clique em **"Import"**
+- Conta no Vercel (https://vercel.com)
+- Repositório no GitHub com o código
+- Vercel CLI instalado (opcional): `npm i -g vercel`
 
-### 3. Configure o Projeto
+## 🚀 Deploy via Dashboard (Recomendado)
 
-#### Root Directory:
+### 1. Importar Projeto
+
+1. Acesse https://vercel.com/new
+2. Clique em "Import Git Repository"
+3. Selecione seu repositório `SecondBrain`
+4. Configure o projeto:
+   - **Framework Preset**: Next.js
+   - **Root Directory**: `frontend`
+   - **Build Command**: `npm run build`
+   - **Output Directory**: `.next`
+   - **Install Command**: `npm install`
+
+### 2. Configurar Variáveis de Ambiente
+
+Na seção "Environment Variables", adicione:
+
+#### Frontend
 ```
-frontend
-```
-(Clique em "Edit" ao lado de "Root Directory" e digite `frontend`)
-
-#### Framework Preset:
-```
-Next.js
-```
-(Deve detectar automaticamente)
-
-#### Build Command:
-```
-npm run build
-```
-(Já vem configurado)
-
-#### Output Directory:
-```
-.next
-```
-(Já vem configurado)
-
-### 4. Adicione Variáveis de Ambiente
-
-Clique em **"Environment Variables"** e adicione:
-
-```
-Name: NEXT_PUBLIC_API_URL
-Value: https://seu-backend-url.com
+NEXT_PUBLIC_API_URL=https://seu-backend-url.railway.app
 ```
 
-**⚠️ IMPORTANTE:** Se você ainda não tem o backend em produção, use temporariamente:
+### 3. Deploy
+
+1. Clique em "Deploy"
+2. Aguarde o build completar (2-3 minutos)
+3. Acesse a URL fornecida pelo Vercel
+
+## 🗄️ Deploy do Backend (Railway - Recomendado)
+
+O Vercel é otimizado para frontend. Para o backend, use Railway:
+
+### 1. Criar Conta no Railway
+
+1. Acesse https://railway.app
+2. Faça login com GitHub
+3. Clique em "New Project"
+
+### 2. Deploy do Backend
+
+1. Selecione "Deploy from GitHub repo"
+2. Escolha o repositório `SecondBrain`
+3. Clique em "Add variables" e configure:
+
 ```
-Value: http://localhost:3001
-```
-(Mas isso só funciona localmente - você precisará fazer deploy do backend depois)
-
-### 5. Deploy!
-
-- Clique em **"Deploy"**
-- Aguarde 2-3 minutos
-- Seu site estará no ar! 🎉
-
----
-
-## 📝 Depois do Deploy
-
-### URL do seu site:
-```
-https://second-brain-[seu-usuario].vercel.app
+DATABASE_URL=postgresql://user:password@host:5432/database
+JWT_SECRET=seu_jwt_secret_super_seguro_aqui
+GROQ_API_KEY=sua_groq_api_key_aqui
+RESEND_API_KEY=sua_resend_api_key_aqui
+EMAIL_FROM=noreply@seudominio.com
+FRONTEND_URL=https://seu-projeto.vercel.app
+PORT=3001
+NODE_ENV=production
 ```
 
-### Para fazer deploy do Backend:
+4. Em "Settings":
+   - **Root Directory**: `backend`
+   - **Build Command**: `npm install && npm run build`
+   - **Start Command**: `npm start`
+   - **Watch Paths**: `backend/**`
 
-Recomendo usar **Railway** ou **Render**:
+5. Clique em "Deploy"
 
-#### Railway (Recomendado):
-1. Acesse: https://railway.app
-2. Conecte GitHub
-3. Selecione repositório (crie um novo só para backend)
-4. Configure variáveis de ambiente
-5. Deploy automático!
+### 3. Obter URL do Backend
 
-#### Render:
-1. Acesse: https://render.com
-2. New → Web Service
-3. Conecte GitHub
-4. Configure variáveis de ambiente
-5. Deploy!
+Após o deploy, copie a URL do Railway (ex: `https://seu-backend.up.railway.app`)
 
----
+### 4. Atualizar Frontend no Vercel
 
-## 🔄 Atualizações Automáticas
+1. Volte ao dashboard do Vercel
+2. Vá em Settings → Environment Variables
+3. Edite `NEXT_PUBLIC_API_URL`
+4. Cole a URL do Railway
+5. Clique em "Redeploy"
 
-Toda vez que você fizer `git push` para o GitHub, o Vercel fará deploy automático! 🚀
+## 🗄️ Configurar Banco de Dados
 
----
+### Opção 1: Railway Postgres (Recomendado)
 
-## 🐛 Problemas Comuns
+1. No Railway, clique em "New"
+2. Selecione "Database" → "PostgreSQL"
+3. Copie a `DATABASE_URL` gerada
+4. Cole nas variáveis de ambiente do backend
 
-### Erro: "Module not found"
-- Verifique se o `Root Directory` está configurado como `frontend`
+### Opção 2: Supabase (Grátis)
 
-### Erro: "Build failed"
-- Verifique se todas as dependências estão no `package.json`
-- Rode `npm install` localmente para testar
+1. Acesse https://supabase.com
+2. Crie um novo projeto
+3. Vá em Settings → Database
+4. Copie a "Connection string"
+5. Cole como `DATABASE_URL`
 
-### Site carrega mas não conecta com backend
-- Verifique a variável `NEXT_PUBLIC_API_URL`
-- Certifique-se que o backend está rodando
+### Executar Migrations
 
----
+Após configurar o banco:
 
-## 📞 Precisa de Ajuda?
+```bash
+# Localmente
+cd backend
+DATABASE_URL="sua_url_aqui" npx prisma migrate deploy
+```
 
-- Documentação Vercel: https://vercel.com/docs
-- Documentação Next.js: https://nextjs.org/docs
+## 📧 Configurar Email (Resend)
 
----
+1. Crie conta em https://resend.com
+2. Obtenha sua API Key
+3. Adicione `RESEND_API_KEY` nas variáveis de ambiente
+4. Configure `EMAIL_FROM` (ex: `noreply@seudominio.com`)
 
-**Criado em:** Maio 2026
-**Versão:** 1.0
+## 🤖 Configurar IA (Groq)
+
+1. Crie conta em https://console.groq.com
+2. Obtenha sua API Key
+3. Adicione `GROQ_API_KEY` nas variáveis de ambiente
+
+## 🔍 Verificar Deploy
+
+Após o deploy, teste:
+
+1. **Frontend**: Acesse `https://seu-projeto.vercel.app`
+2. **Backend**: Acesse `https://seu-backend.railway.app/health`
+3. **Registro**: Tente criar uma conta
+4. **Login**: Tente fazer login
+
+## 🐛 Troubleshooting
+
+### Erro: "Failed to fetch"
+
+- Verifique se `NEXT_PUBLIC_API_URL` está configurada
+- Confirme que o backend está rodando no Railway
+- Verifique CORS no backend
+
+### Erro: "Database connection failed"
+
+- Verifique se `DATABASE_URL` está configurada
+- Execute migrations: `npx prisma migrate deploy`
+
+### Erro: "JWT secret not configured"
+
+- Adicione `JWT_SECRET` nas variáveis de ambiente
+- Use um valor seguro: `openssl rand -base64 32`
+
+## 🔄 Atualizações
+
+Para fazer deploy de novas versões:
+
+```bash
+git add .
+git commit -m "feat: nova funcionalidade"
+git push origin main
+```
+
+- Vercel fará deploy automático do frontend
+- Railway fará deploy automático do backend
+
+## 💰 Custos
+
+### Vercel (Frontend)
+- **Hobby Plan** (Grátis):
+  - 100 GB bandwidth/mês
+  - Builds ilimitados
+
+### Railway (Backend)
+- **Trial**: $5 grátis/mês
+- **Developer**: $5/mês depois do trial
+- **Team**: $20/mês
+
+## � Links Úteis
+
+- [Documentação Vercel](https://vercel.com/docs)
+- [Documentação Railway](https://docs.railway.app)
+- [Next.js no Vercel](https://vercel.com/docs/frameworks/nextjs)
