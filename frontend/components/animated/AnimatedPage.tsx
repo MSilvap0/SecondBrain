@@ -17,7 +17,7 @@ const pageVariants = {
     y: 0,
     transition: {
       duration: 0.5,
-      ease: [0.22, 1, 0.36, 1],
+      ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
       staggerChildren: 0.1
     }
   },
@@ -58,7 +58,7 @@ export function AnimatedSection({
       transition={{
         duration: 0.5,
         delay,
-        ease: [0.22, 1, 0.36, 1]
+        ease: [0.22, 1, 0.36, 1] as [number, number, number, number]
       }}
     >
       {children}
@@ -102,7 +102,7 @@ export function StaggerItem({ children }: { children: ReactNode }) {
           y: 0,
           transition: {
             duration: 0.5,
-            ease: [0.22, 1, 0.36, 1]
+            ease: [0.22, 1, 0.36, 1] as [number, number, number, number]
           }
         }
       }}
