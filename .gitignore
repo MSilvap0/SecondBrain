@@ -12,6 +12,9 @@ build/
 .next/
 out/
 
+# Backend (não enviar para GitHub)
+backend/
+
 # Misc
 .DS_Store
 *.pem
