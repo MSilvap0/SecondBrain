@@ -81,11 +81,6 @@ export function AnimatedIconBox({
         stiffness: 400,
         damping: 17
       }}
-      transition={{
-        type: "spring",
-        stiffness: 400,
-        damping: 17
-      }}
     >
       <motion.div
         whileHover={{ rotate: 12 }}
