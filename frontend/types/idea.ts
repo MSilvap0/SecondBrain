@@ -22,9 +22,9 @@ export interface IdeaCardProps extends Idea {
 export interface IdeaGridProps {
   ideas: Idea[];
   loading?: boolean;
-  onDelete?: (id: string) => void;
-  onToggleFavorite?: (id: string) => void;
-  onAIExpand?: (id: string) => void;
+  onDelete?: (id: string | number) => void;
+  onToggleFavorite?: (id: string | number) => void;
+  onAIExpand?: (id: string | number) => void;
   emptyMessage?: string;
   emptyDescription?: string;
 }
