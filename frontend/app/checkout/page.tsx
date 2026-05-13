@@ -271,6 +271,7 @@ function CheckoutContent() {
       console.error('❌ Erro de conexão:', err);
       setError('Erro ao conectar com o servidor');
     } finally {
+      console.log('🏁 Finalizando handleSubmit, setLoading(false)');
       setLoading(false);
     }
   };
