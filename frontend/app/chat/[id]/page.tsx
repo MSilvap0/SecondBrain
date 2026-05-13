@@ -532,15 +532,15 @@ Seja proativo, detalhado e útil. Formate sua resposta de forma clara e organiza
 
         {/* Messages Container */}
         <div className="max-w-5xl mx-auto px-4 py-6">
-          <div className="space-y-6 mb-32">
+          <div className="space-y-3 mb-32">
             <AnimatePresence>
               {messages.map((message, index) => (
                 <motion.div
                   key={message.id}
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  className={`flex gap-4 ${
+                  transition={{ duration: 0.2 }}
+                  className={`flex gap-3 ${
                       message.role === 'user' ? 'flex-row-reverse' : 'flex-row'
                   }`}
                 >
