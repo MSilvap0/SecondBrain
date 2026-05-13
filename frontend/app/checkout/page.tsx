@@ -248,7 +248,12 @@ function CheckoutContent() {
         setPaymentData(data);
         
         // Atualizar dados do usuário do backend
-        await refreshUser();
+        try {
+          await refreshUser();
+        } catch (error) {
+          console.error('Erro ao atualizar dados do usuário:', error);
+          // Não impedir o sucesso mesmo se refreshUser falhar
+        }
         
         // Redirecionar após 5 segundos (exceto PIX e Boleto)
         if (paymentMethod === 'credit_card' || paymentMethod === 'paypal') {
