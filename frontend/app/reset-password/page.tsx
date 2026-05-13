@@ -4,6 +4,7 @@ import { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { Lock, ArrowRight, Check, AlertCircle, Loader2, Eye, EyeOff } from 'lucide-react';
+import { API_BASE_URL } from '@/shared/constants/api';
 
 function ResetPasswordContent() {
   const router = useRouter();
@@ -33,7 +34,7 @@ function ResetPasswordContent() {
     }
 
     try {
-      const response = await fetch(`http://localhost:3001/api/password-reset/verify/${token}`);
+      const response = await fetch(`${API_BASE_URL}/api/password-reset/verify/${token}`);
       const data = await response.json();
 
       if (response.ok && data.valid) {
@@ -67,7 +68,7 @@ function ResetPasswordContent() {
     setLoading(true);
 
     try {
-      const response = await fetch('http://localhost:3001/api/password-reset/reset', {
+      const response = await fetch(`${API_BASE_URL}/api/password-reset/reset`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

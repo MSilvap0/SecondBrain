@@ -26,6 +26,7 @@ import {
   X,
   Loader2
 } from 'lucide-react';
+import { API_BASE_URL } from '@/shared/constants/api';
 
 export default function SettingsPage() {
   const [activeTab, setActiveTab] = useState<'profile' | 'ai-usage' | 'plan' | 'payment'>('profile');
@@ -103,7 +104,7 @@ export default function SettingsPage() {
       }
 
       // Buscar dados reais da API
-      const response = await fetch('http://localhost:3001/api/user/settings', {
+      const response = await fetch(`${API_BASE_URL}/api/user/settings`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -162,7 +163,7 @@ export default function SettingsPage() {
         return;
       }
 
-      const response = await fetch('http://localhost:3001/api/purchase/history', {
+      const response = await fetch(`${API_BASE_URL}/api/purchase/history`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -197,7 +198,7 @@ export default function SettingsPage() {
         return;
       }
 
-      const response = await fetch('http://localhost:3001/api/user/settings', {
+      const response = await fetch(`${API_BASE_URL}/api/user/settings`, {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -234,7 +235,7 @@ export default function SettingsPage() {
     setPasswordResetSuccess(false);
 
     try {
-      const response = await fetch('http://localhost:3001/api/password-reset/request', {
+      const response = await fetch(`${API_BASE_URL}/api/password-reset/request`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

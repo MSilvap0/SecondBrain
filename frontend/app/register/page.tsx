@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { AnimatePresence } from 'framer-motion';
 import { ArrowRight, ArrowLeft, Check, Sparkles } from 'lucide-react';
 import { useToast } from '@/hooks/useToast';
+import { API_BASE_URL, API_ENDPOINTS } from '@/shared/constants/api';
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -26,7 +27,7 @@ export default function RegisterPage() {
     setLoading(true);
 
     try {
-      const response = await fetch('http://localhost:3001/api/auth/register', {
+      const response = await fetch(`${API_BASE_URL}${API_ENDPOINTS.REGISTER}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -57,7 +58,7 @@ export default function RegisterPage() {
     setLoading(true);
 
     try {
-      const response = await fetch('http://localhost:3001/api/auth/verify-email', {
+      const response = await fetch(`${API_BASE_URL}/api/auth/verify-email`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

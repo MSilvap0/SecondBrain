@@ -6,6 +6,7 @@ import { DashboardLayout } from '@/components/DashboardLayout';
 import { PlanBadge } from '@/components/PlanBadge';
 import { motion } from 'framer-motion';
 import { Crown, Zap, Building2, ArrowRight, Check, AlertCircle, TrendingUp, Calendar, CreditCard } from 'lucide-react';
+import { API_BASE_URL } from '@/shared/constants/api';
 
 export default function PlanSettingsPage() {
   const router = useRouter();
@@ -21,7 +22,7 @@ export default function PlanSettingsPage() {
   const loadUserPlan = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:3001/api/user/plan', {
+      const response = await fetch(`${API_BASE_URL}/api/user/plan`, {
         headers: {
           'Authorization': `Bearer ${token}`,
         },

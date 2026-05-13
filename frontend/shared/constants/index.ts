@@ -1,1 +1,2 @@
-export const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080';
+// API Configuration - Use api.ts for all API constants
+export { API_BASE_URL, API_ENDPOINTS, getApiUrl } from './api';

@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Send, Sparkles, User, Bot, Loader2, X, Maximize2, Minimize2 } from 'lucide-react';
 import { AnimatedButton } from './animated/AnimatedButton';
+import { API_BASE_URL, API_ENDPOINTS } from '../shared/constants/api';
 
 interface Message {
   id: string;
@@ -66,7 +67,7 @@ export function AIChat({ initialIdea, onClose, onSaveExpansion }: AIChatProps) {
     try {
       // Chamar API de IA
       const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:3001/api/ai/chat', {
+      const response = await fetch(`${API_BASE_URL}${API_ENDPOINTS.AI_CHAT}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

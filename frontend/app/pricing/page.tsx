@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { Check, Zap, Crown, Building2, ArrowRight, Sparkles, X } from 'lucide-react';
+import { API_BASE_URL } from '@/shared/constants/api';
 
 export default function PricingPage() {
   const router = useRouter();
@@ -32,7 +33,7 @@ export default function PricingPage() {
   const loadCurrentPlan = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:3001/api/user/plan', {
+      const response = await fetch(`${API_BASE_URL}/api/user/plan`, {
         headers: {
           'Authorization': `Bearer ${token}`,
         },
@@ -140,7 +141,7 @@ export default function PricingPage() {
         return;
       }
       const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:3001/api/user/plan/update', {
+      const response = await fetch(`${API_BASE_URL}/api/user/plan/update`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

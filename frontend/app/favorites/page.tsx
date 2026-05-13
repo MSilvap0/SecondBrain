@@ -6,6 +6,7 @@ import { IdeaGrid } from '@/components/IdeaGrid';
 import { motion } from 'framer-motion';
 import { Star, Search, Heart } from 'lucide-react';
 import type { Idea } from '@/types/idea';
+import { API_BASE_URL } from '@/shared/constants/api';
 
 export default function FavoritesPage() {
   const [ideas, setIdeas] = useState<Idea[]>([]);
@@ -19,7 +20,7 @@ export default function FavoritesPage() {
   const loadIdeas = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:3001/api/ideas', {
+      const response = await fetch(`${API_BASE_URL}/api/ideas`, {
         headers: {
           'Authorization': `Bearer ${token}`,
         },
@@ -39,7 +40,7 @@ export default function FavoritesPage() {
   const handleDelete = async (id: string | number) => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`http://localhost:3001/api/ideas/${String(id)}`, {
+      const response = await fetch(`${API_BASE_URL}/api/ideas/${String(id)}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -57,7 +58,7 @@ export default function FavoritesPage() {
   const handleToggleFavorite = async (id: string | number) => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`http://localhost:3001/api/ideas/${String(id)}/favorite`, {
+      const response = await fetch(`${API_BASE_URL}/api/ideas/${String(id)}/favorite`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,

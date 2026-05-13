@@ -6,13 +6,13 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: true,
   },
-  // Variáveis de ambiente para produção
-  env: {
-    NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL || 'https://your-backend-url.com',
-  },
   // Otimizações de build
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',
+  },
+  // Garantir que variáveis de ambiente sejam carregadas corretamente
+  env: {
+    NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
   },
 };
 
