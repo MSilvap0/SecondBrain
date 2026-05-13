@@ -15,6 +15,7 @@ import {
   AlertCircle,
   Mail
 } from 'lucide-react';
+import { API_BASE_URL } from '@/shared/constants/api';
 
 function CheckoutContent() {
   const router = useRouter();
@@ -208,7 +209,7 @@ function CheckoutContent() {
       // Processar checkout
       console.log('🛒 Enviando checkout:', { plan, billingCycle: formData.billingCycle, paymentMethod });
       
-      const response = await fetch('http://localhost:3001/api/purchase/checkout', {
+      const response = await fetch(`${API_BASE_URL}/api/purchase/checkout`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,

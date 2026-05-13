@@ -15,6 +15,7 @@ import {
   Lock,
   Mail
 } from 'lucide-react';
+import { API_BASE_URL } from '@/shared/constants/api';
 
 export default function BuyCreditsPage() {
   const router = useRouter();
@@ -41,7 +42,7 @@ export default function BuyCreditsPage() {
   const loadPackages = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:3001/api/credits/packages', {
+      const response = await fetch(`${API_BASE_URL}/api/credits/packages`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -75,7 +76,7 @@ export default function BuyCreditsPage() {
 
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:3001/api/credits/purchase', {
+      const response = await fetch(`${API_BASE_URL}/api/credits/purchase`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,

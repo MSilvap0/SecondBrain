@@ -69,7 +69,7 @@ export default function ChatPage() {
       const token = localStorage.getItem('token');
       
       // Buscar ideia
-      const response = await fetch(`http://localhost:3001/api/ideas/${ideaId}`, {
+      const response = await fetch(`${API_BASE_URL}/api/ideas/${ideaId}`, {
         headers: {
           'Authorization': `Bearer ${token}`,
         },
@@ -128,7 +128,7 @@ export default function ChatPage() {
 
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:3001/api/ai/chat', {
+      const response = await fetch(`${API_BASE_URL}/api/ai/chat`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -225,7 +225,7 @@ Seja proativo, detalhado e útil. Formate sua resposta de forma clara e organiza
 
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:3001/api/ai/chat', {
+      const response = await fetch(`${API_BASE_URL}/api/ai/chat`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -311,7 +311,7 @@ Seja proativo, detalhado e útil. Formate sua resposta de forma clara e organiza
         .map(m => m.content)
         .join('\n\n---\n\n');
 
-      const response = await fetch(`http://localhost:3001/api/ideas/${ideaId}`, {
+      const response = await fetch(`${API_BASE_URL}/api/ideas/${ideaId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -386,7 +386,7 @@ Seja proativo, detalhado e útil. Formate sua resposta de forma clara e organiza
         .map(m => m.content)
         .join('\n\n---\n\n');
 
-      const response = await fetch(`http://localhost:3001/api/ideas/${ideaId}`, {
+      const response = await fetch(`${API_BASE_URL}/api/ideas/${ideaId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
