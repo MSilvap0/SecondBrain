@@ -225,6 +225,21 @@ Seja proativo, detalhado e útil. Formate sua resposta de forma clara e organiza
 
     try {
       const token = localStorage.getItem('token');
+      
+      // Debug: logar mensagens antes de enviar
+      const messagesToSend = [...messages, userMessage].map(m => ({
+        role: m.role,
+        content: m.content
+      }));
+      
+      console.log('📤 Enviando mensagens para backend:', {
+        numMessages: messagesToSend.length,
+        messages: messagesToSend.map(m => ({
+          role: m.role,
+          content: m.content.substring(0, 50) + '...'
+        }))
+      });
+      
       const response = await fetch(`${API_BASE_URL}/api/ai/chat`, {
         method: 'POST',
         headers: {
@@ -232,10 +247,7 @@ Seja proativo, detalhado e útil. Formate sua resposta de forma clara e organiza
           'Authorization': `Bearer ${token}`,
         },
         body: JSON.stringify({
-          messages: [...messages, userMessage].map(m => ({
-            role: m.role,
-            content: m.content
-          })),
+          messages: messagesToSend,
           context: idea ? `Ideia: ${idea.title}` : undefined
         }),
       });
