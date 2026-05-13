@@ -351,7 +351,7 @@ Seja proativo, detalhado e útil. Formate sua resposta de forma clara e organiza
         .map(m => m.content)
         .join('\n\n---\n\n');
 
-      await fetch(`http://localhost:3001/api/ideas/${ideaId}`, {
+      await fetch(`${API_BASE_URL}/api/ideas/${ideaId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
