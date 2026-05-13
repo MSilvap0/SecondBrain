@@ -16,10 +16,12 @@ import {
   Mail
 } from 'lucide-react';
 import { API_BASE_URL } from '@/shared/constants/api';
+import { useAuth } from '@/contexts/AuthContext';
 
 function CheckoutContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const { refreshUser } = useAuth();
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState('');
@@ -245,13 +247,9 @@ function CheckoutContent() {
         setTransactionId(data.purchase.transactionId);
         setPaymentData(data);
         
-        // Atualizar localStorage com novo plano (exceto boleto pendente)
-        if (paymentMethod !== 'boleto') {
-          const user = JSON.parse(localStorage.getItem('user') || '{}');
-          user.plan = plan;
-          localStorage.setItem('user', JSON.stringify(user));
-        }
-
+        // Atualizar dados do usuário do backend
+        await refreshUser();
+        
         // Redirecionar após 5 segundos (exceto PIX e Boleto)
         if (paymentMethod === 'credit_card' || paymentMethod === 'paypal') {
           setTimeout(() => {
